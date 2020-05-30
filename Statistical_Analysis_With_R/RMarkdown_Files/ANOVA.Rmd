@@ -1,0 +1,106 @@
+---
+title: "ANOVA"
+---
+
+Let's conduct one-way analysis of variance (ANOVA).
+
+To perform One-way ANOVA, we have a dataset that shows weight loss for different diet plans.
+
+So, let's load the data first.
+
+```{r dataload}
+wtlossdata = read.table(file = "Dataset/DietWeigthLoss.txt", header=T, sep = "\t")
+attach(wtlossdata)
+```
+
+Let's view the data briefly.
+
+Let's see the variable names present in the dataset
+
+```{r varnames}
+names(wtlossdata)
+```
+Let's verify the class of these two variables :
+
+```{r classtest}
+class(WeightLoss)
+```
+```{r classtest2}
+class(Diet)
+```
+
+As `Diet` variable is of factor type, so let's see, what are the unique diet plans we have in our dataset
+
+```{r dieltypes}
+levels(Diet)
+```
+
+In case we want to know a brief information about ANOVA, we can simple pass the following command to see help
+
+```{r anovahelp, eval=FALSE}
+help(aov)
+#or,
+?aov
+```
+
+Let's visualize the weight loss data by different diet plans using boxplots :
+
+```{r boxplots_comparision}
+boxplot(WeightLoss ~ Diet)
+```
+
+
+### Hypothesis Testing
+
+Let's define our null and alternate hypothesis for one-way ANOVA
+
+Ho: Mean weight loss is same for all the diets.
+Ha: Mean weight loss is different for atleast one diet
+
+```{r onewayANOVA}
+ANOVATEST = aov(WeightLoss ~ Diet)
+ANOVATEST
+```
+Let's see a descriptive summary of our test :
+
+```{r ANOVAsummary}
+summary(ANOVATEST)
+```
+
+Now, let's see the various attributes present in the output of our test :
+
+```{r attributesANOVA}
+attributes(ANOVATEST)
+```
+
+
+Now, let's understand the the output of our hypothesis testing.
+
+First, let's look at the coefficients of different diets :
+
+```{r coff}
+ANOVATEST$coefficients
+```
+
+Now, as the *p-Value* of the test is very low, so we reject the null hypothesis and believe that the means of different diets are not equal.
+
+Now, to find out, weightloss due to which diet plan is significantly different than others, we have to pass the following command :
+
+```{r multiplecomparison}
+TukeyHSD(ANOVATEST)
+```
+Now, in order to make our comparision easier, we can visualise the above data, by just passing a `plot()` function over it.
+
+```{r plottingcomparision}
+plot(TukeyHSD(ANOVATEST), las=1)
+```
+
+From the above plot, we can conclude that the mean weight loss due to the diets **A** & **C** and diets **B** & **D** are significantly different, as we don't have `zero(0)` in between the upper and lower bounds, i.e., the means can never be equal.
+
+
+
+
+
+
+
+

@@ -1,0 +1,201 @@
+---
+title: "Control Structures"
+output: html_document
+---
+
+Control structures are divided into 2 types :
+
+1. Excute certain commands only when certain condition(s) is satisfied.</br>
+  ***For e.g :*** *`if-then-else`* statements.
+2. Execute certain commands repeatedly and use a certain logic to stop the iteration.</br> ***For e.g :*** *`for loop`*, *`while loop`* etc.
+
+
+### `If else` Family
+
+`if`, `if-else` and `if-elseif-else` are a family of constructs where "
+
+- A condition is first checked, if satisfied then the operations are performed.
+- If the condition is not satisfied, then, code exits the construct or, moves on to other options.
+
+#### 1. `If` Construct
+
+***Syntax :***
+```{r if Syntax, eval= FALSE}
+if(condition){
+  statements..
+}
+```
+#### 2. `If-else` Construct
+
+***Syntax :***
+```{r if-else Syntax, eval= FALSE}
+if(condition){
+  statements
+} else{
+  alternate statements
+}
+```
+
+#### 3. `If-elseif-else` Construct
+
+***Syntax :***
+```{r if-elseif-else Syntax, eval= FALSE}
+if(condition){
+  statements
+} else if(condition){
+  alternate statements
+} else{
+  alternate statements
+}
+```
+
+***Example :***
+
+<i>Let's write the R-code for the following problem :</br>
+- If `x` is greater than `7`,then, operations within the curved braces will occur.</br>
+- Else the next condition,i.e., `x>8` would be checked and if this is not true</br>
+- Final else condition is checked and if that too is false, then, there is no change is `x`.</i>
+
+Let's assume the initial value of x=6 . So, the code would be :
+
+```{r if-else example}
+
+x = 6
+if(x>7){
+  x = x+1
+}else if(x>8){
+  x=x+2
+}else{
+  x = x+3
+}
+
+print(x)
+```
+
+### For Loop Construct
+
+The structure of a `for loop` construct comprises :
+
+- A sequence which could be a vector or, list.
+- `iter` is an element of the sequence
+- statements
+
+Before understanding the *for loop*, we first need to understand the *Sequence function*.
+
+#### Sequence Function
+
+- A sequence function is one of the components of *for loop*.
+- ***Syntax :***
+```{r Sequence Function Syntax, eval = FALSE}
+seq(from, to, length)
+```
+- The sequence function creates an equi-spaced points between `from` and `to`
+  - `from` : Starting Number
+  - `to` : Ending Number
+  - `by` : Increment/Decrement (width)
+  - `length` : Number of elements required
+
+- ***Example :***
+
+```{r sequence example}
+
+seq(from = 1, to = 10, by = 2)
+
+seq(from = 1, to = 10, length = 4)
+```
+
+#### For Loop
+***Syntax :***
+```{r for loop Syntax, eval = FALSE}
+
+for(iter in sequence){
+  statements
+}
+
+```
+
+#### Nested For Loop
+
+When one or, more `for loop` constructs are located within one another then, its known as *"Nested For Loop"*
+
+***Syntax :***
+```{r nested for loop Syntax, eval = FALSE}
+
+for(iter_1 in sequence_1){
+  for(iter_2 in sequence_2){
+    statements
+  }
+}
+
+```
+
+***Example :***
+
+```{r for loop example}
+
+n = 5
+sum = 0
+
+for(i in seq(1,n,1)){
+  sum = sum + i
+  print(c(i,sum))
+}
+
+```
+
+#### For Loop with `if-break`
+
+- A `break` statement once executed, program exits the loop even before the iterations are complete.
+- `break` command comes out of the innermost loop for nested loops.
+
+***Example :***
+*Let's say we want to terminate the looping when `sum` is greater than `15` :*
+
+```{r for loop with break example}
+
+n = 100
+sum = 0
+
+for (i in seq(1,n,1)){
+  sum = sum + i
+  print(c(i, sum))
+  
+  if(sum >= 15){
+    break
+  }
+}
+```
+
+### While Loop
+
+A `while loop` is used whenever we want to execute statements until a specific condition is violated.
+
+***Example :***
+<i> Consider a sequence of natural numbers. </br>
+
+What is the value of the natural number up to which the calculated sum is less than the specified `Fin_sum` ?</i>
+
+***1+2+3+.....+n = Fin_sum(15)***
+
+```{r while loop example}
+
+sum = 0
+i = 0
+Fin_sum = 15
+
+while(sum < Fin_sum){
+  i = i+1
+  sum = sum+i
+  print(c(i,sum))
+}
+```
+
+
+
+
+
+
+
+
+
+

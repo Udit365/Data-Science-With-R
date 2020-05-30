@@ -1,0 +1,204 @@
+---
+title: "Statistics Fundamentals"
+---
+
+It would not be wrong if we say that statistics starts with an interest to quantify the centre and spread of the distribution of a variable.
+
+So, let's load the "Lung Capacity Dataset" to produce the numerical summeries of categorical and numerical variables.
+
+```{r dataload}
+LungCapData = read.table(file = "Dataset/LungCapData.txt", header = TRUE, sep = "\t")
+head(LungCapData)
+attach(LungCapData)
+```
+The above table gives us a brief look over the data andd class of each variable.
+
+Now, let's see various summarizing options for the categorical and numerical variables
+
+
+### Summarizing Categorical Variables
+
+
+Categorical variables can be summarized using a frequency/proportion table and to produce a frequency table, we use either use the `table()` function or, the `summary()` function :
+
+```{r CategoricalSummary}
+table(Smoke)
+```
+Or,
+
+```{r CategoricalSummary2}
+summary(Smoke)
+```
+
+So, we can see, we have `648` observations for `no` and `77` observations for `yes` within the categorical variable `Smoke`.
+
+To get the total number of observations in a variable, we use the `length()` command :
+
+```{r LengthOfVariable}
+length(Smoke)
+```
+
+Now, we can produce a proportion table for `Smoke` variable, as follows :
+
+````{r ProportionTable}
+table(Smoke)/length(Smoke)
+```
+
+To produce a two-way table or, contengency table between `Gender` and `Smoke`, we can utilise the `table()` as follows :
+
+```{r ContengencyTable}
+table(Smoke, Gender)
+```
+
+***Note :*** The first variable passed in the `table()` function is taken into the rows.
+
+### Summarizing Numeric Variables
+
+We can get the mean of our numeric variable `LungCap` with `mean()` function :
+
+```{r mean}
+mean(LungCap)
+```
+To get a trimmed mean :
+
+```{r meantrim}
+mean(LungCap, trim = 0.10)
+```
+***Note :*** By the argument `trim = 0.10`, we have removed the top and bottom 10% observations from the mean calculation.
+
+To calculate median, we can use the `median()` command :
+
+```{r median}
+median(LungCap)
+```
+To calculate the variance, we use the `var()` command :
+
+```{r variance}
+var(LungCap)
+```
+
+To calculate the standard deviation, we can the `sd()` command or, can simply pass the `var()` argument within th `sqrt()` function :
+
+```{r stdev}
+sd(LungCap)
+```
+Or, 
+
+```{r stdev2}
+sqrt(var(LungCap))
+```
+
+similarly, the alternate way to calculate the variance is to sqaure the standard deviation :
+
+```{r Variance2}
+Variance = sd(LungCap) ^ 2
+Variance
+```
+
+To get the minimum and maximum values present in the `LungCap` variable :
+
+```{r minimum}
+#For Minimum
+min(LungCap)
+```
+and 
+```{r maximum}
+#For Maximum
+max(LungCap)
+```
+
+We can find the range(minimum & maximum) of the variable, by using the `range()` command :
+
+```{r range}
+range(LungCap)
+```
+
+Specific quantiles/percentiles can be calculated for the variable, using the `quantile()` function :
+
+To get the 90th percentile :
+
+```{r quantile}
+quantile(LungCap, probs = 0.90)
+```
+To obtain multiple percentiles, we can pass a list in the `probs` argument :
+
+```{r quantiles2}
+quantile(LungCap, probs = c(0.2, 0.5, 0.7, 1))
+```
+
+To calculate the sum of all the entries of a variable :
+
+```{r sum}
+sum(LungCap)
+```
+
+To calculate the Pearson's correlation between `Age` and `LungCap`, we can use the `cor()` function:
+
+```{r corr}
+cor(LungCap, Age)
+```
+
+***Note :*** The default correlation in `cor()` function is Pearson's correlation but, if we need any other type of correlation, then, we have to pass an additional argument `method`.
+
+To get Spearman's correlation between `Age` and `LungCap`
+
+```{r CorrSpearman}
+cor(LungCap, Age, method = "spearman")
+```
+
+The covariance between `Age` and `LungCap` can be calculated using `cov()` command or, by `var()` command as well.
+
+```{r cov1}
+cov(LungCap, Age)
+```
+Or,
+
+```{r cov2}
+var(LungCap, Age)
+```
+
+We can use the `summary` command, to get most of the summaries for a variable :
+
+
+```{r summary}
+summary(LungCap)
+```
+
+As we can see, the output of `summary()` function gives us the following summary level information of the variable :
+
+1. Minimum
+2. 1st quartile (25th percentile)
+3. Median (50th Percentile/2nd quartile)
+4. Mean
+5. 3rd quartile (75th percentile)
+6. Maximum
+
+To get help in any of the summary attributes, just pass its name inside the `help()` command or, after `?`, as follows :
+
+```{r helpsummary, eval=FALSE}
+help("mean") #or,
+?mean
+```
+
+We can also pass the entire dataset inside the `summary()` command to get a cursory look over the summary of each variable :
+
+```{r tablesummary}
+summary(LungCapData)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

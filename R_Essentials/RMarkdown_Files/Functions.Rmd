@@ -1,0 +1,233 @@
+---
+title: "Functions"
+author: "Udit Kumar Chatterjee"
+output: html_document
+---
+
+- A function accepts input arguments and produces output by executing valid R commands present in the function.
+- Function name and file names need not to be the same.
+- A file can have one or, more function definitions.
+- Functions are created using the command `function()`
+
+Syntax :
+
+```{r, eval = FALSE}
+f = function(arguments){
+      statements
+      return(argument)
+    }
+```
+
+***Example :***
+
+- We have already created a R-script file that consists of various custom function like `volcylinder()` , `volsacylinder_mimo()` etc. Now, in order to apply them, we need to call and load the function file and then use it.
+
+- Let's calculate the volume of a cylinder that has a diameter of 15 units and lenggth of 30 units, by using the custom function `volcylinder()`
+
+
+```{r}
+source("Custom Functions.R") #Invoking and loading the custom functions
+v = volcylinder(15,30)
+v
+```
+
+### Passing Arguments To Functions
+
+We can pass arguments to the function in the following ways :
+
+- Passing the arguments in the same order as in the function definition.
+```{r}
+v = volcylinder(15,30) #Here, dia = 15 & len = 30
+v
+```
+- Passing the arguments in different order by specifying the argument name.
+```{r}
+v = volcylinder(len = 30, dia = 15)
+v
+```
+- Default values are used by the function if some or, all arguments are not passed.
+```{r}
+v = volcylinder() #Here, dia = 5 & len = 10 has been taken as arguments
+v
+```
+
+### Lazy Function Evaluation
+
+- Functions are lazily evaluated, which means that if some arguments are missing, then, the function is still executed as long as the execution doesn't involve these arguments
+
+***Example :***
+
+```{r}
+volume_case1 = function(dia, len, rad){
+  vol = pi * dia/2 * len/4
+  return(vol)
+}
+
+vol = volume_case1(len=22, dia=12)
+vol
+```
+In the above case, even if we didn't gave any value for the `rad` argument, the function executed correctly as the `rad` argument is not used anywhere.
+
+But, in the below example; we will get an error because, the `rad` argument has been used in the function but, missing in our evaluation statement.
+
+```{r, eval= FALSE}
+volume_case2 = function(dia, len, rad){
+  vol = pi * dia/2 * len/4
+  print(rad)
+  return(vol)
+}
+
+vol = volume_case2(len=22, dia=12)
+vol
+```
+
+### MIMO Functions
+
+- Functions in R can take multiple input objects but, returns only one object as output.
+- However, this is not a limitation because, list objects can also be returns by a function.
+
+***Example :***
+
+- We have created a custom function called `volsacylinder_mimo()` to calculate both volume and surface area of a cylinder by taking diameter and length of the cylinder as input.
+
+```{r}
+source("Custom Functions.R")
+result = volsacylinder_mimo(dia = 12, len = 15)
+
+result["Volume"] #Getting only volume
+result["Surface Area"] #Getting only surface area
+```
+
+### Inline Functions
+
+- Inline functions comes very handy when we have to find out the output of a complex polynomial equation for various input values
+
+***For Example :***
+
+```{r}
+func = function(x){x^2+4*log(x)+5*x+2}
+```
+```{r}
+func(5)
+```
+```{r}
+func(13)
+```
+```{r}
+func(23)
+```
+
+### Looping Over Objects
+
+There are few looping functions available in R that are pretty useful when working interactively on a command line.</br>
+
+Those functions are as follows :
+
+- `apply()` : Apply a function over the margins of an array or, matrix.
+- `lapply()` : Apply a function over a list or, vector.
+- `tapply()` : Apply a function over a ragged array.
+- `mapply()` : Multivariate version of `lapply()`.
+- `xxply()` : Function from `plyr` package.
+
+
+#### 1. `apply()` Function
+
+- Applies a given function over the margins of given array.
+- ***Syntax :***
+  ```{r, eval = F}
+  apply(array, margins, function, ...)
+  ```
+- Here, `margins` refer to the dimension of the array along which the function need to be applied.
+  - For rows, `margin = 1`
+  - For columns, `margin = 2`
+  
+***Example :***
+```{r}
+
+K = matrix(1:9,3,3)
+K
+```
+```{r}
+
+apply(K,1,sum) #applying the sum function across the rows
+```
+```{r}
+apply(K,2,sum) #applying the sum function across the columns
+```
+
+#### 2. `lapply()` Function
+
+- Used to apply a function over a list.
+- Always returns a list of the same length as the input list.
+- ***Syntax :***
+  ```{r, eval = F}
+  lapply(list, function, ...)
+  ```
+***Example :***
+
+*Let's take 2 matrices as the elements of a list and find their determinant in the output using in-built `det` function*
+
+```{r}
+R = matrix(1:9,3,3)
+S = matrix(10:18,3,3)
+
+MyList = list(R,S)
+
+determinant_list = lapply(MyList, det)
+
+determinant_list
+```
+
+#### 3. `mapply()` Function
+
+- Multivariate version of `lapply()`.
+- A function can be applied over several lists simultaneously.
+- ***Syntax :***
+  ```{r, eval = F}
+  mapply(function, list1,list2,list3 ...)
+  ```
+***Example :***
+
+*Let's apply the custom function `volcylinder()` over a set of diameters and lengths*
+
+```{r}
+source("Custom Functions.R")
+
+dia = list(1,2,3,4,5,6)
+len = list(7,8,9,10,11,12)
+
+vol = mapply(volcylinder,dia,len)
+
+vol
+```
+
+#### 4. `tapply()` Function
+
+- Used to apply a function over subset of vectors given by a combination of factors.
+- ***Syntax :***
+  ```{r, eval = F}
+  tapply(vector, factors, function ...)
+  ```
+***Example :***
+
+*Let's apply the sum function to add the `VALUES` by `ID`*
+
+```{r}
+
+ID = c(1,1,1,1,2,2,2,3,3)
+VALUES = c(1:9)
+
+tapply(VALUES, ID, sum)
+```
+
+
+
+
+
+
+
+
+
+
+
+

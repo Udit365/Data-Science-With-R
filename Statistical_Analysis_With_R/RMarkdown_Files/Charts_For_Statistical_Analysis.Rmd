@@ -1,0 +1,330 @@
+---
+title: "Charts For Statistical Analysis"
+---
+
+
+To plot various charts, let's first load and attach the *"Lung Capacity Dataset".
+
+```{r dataload}
+LungCapData = read.table(file = "Dataset/LungCapData.txt", header = T, sep = "\t")
+attach(LungCapData)
+head(LungCapData)
+```
+
+The above table gives us a brief look over the data and class of each variable.
+
+Let's graphically analyse the variables present in the dataset :
+
+### Barcharts
+
+Barcharts are appropriate for summarizing the distribution of a categorical variable.
+
+To get help on barplot in R :
+
+```{r barhelp, eval=FALSE}
+help("barplot") #or,
+?barplot
+```
+
+A barplot is a visual display of the frequency of each category/element of a categorical variable or, the relative frequency of each category/element.
+
+Let's first produce a proportion table of *"Gender"* to form a barplot :
+
+```{r Proptable}
+
+Proportion = table(Gender)/length(Gender)
+Proportion
+
+```
+Now, let's plot a barchart for the proportion table :
+
+```{r barplot}
+barplot(Proportion,
+        main = "Bar Plot",
+        xlab = "Gender",
+        ylab = "Proportion",
+        las = 1,
+        names.arg = c("Female", "Male"),
+        )
+```
+
+To get a horizotal barplot, we have to pass `horiz = TRUE` argument inside `barplot()` function.
+
+```{r horizbarplot}
+barplot(Proportion,
+        main = "Bar Plot",
+        xlab = "Proportion",
+        ylab = "Gender",
+        las = 1,
+        names.arg = c("Female", "Male"),
+        horiz = TRUE
+        )
+
+```
+
+### Pie Charts
+
+Piecharts are appropriate for summarizing the distribution of a categorical variable but, its intuitive only when we have fewer categories/elements (3 or, less)
+
+To get help on piechart in R :
+
+```{r piehelp, eval=FALSE}
+help("pie") #or,
+?pie
+```
+
+A pie chart is a also visual display of the frequency of each category/element of a categorical variable or, the relative frequency of each category/element.
+
+Now, let's plot a pie chart for the *"Proportion"* table :
+
+```{r piechart}
+pie(Proportion,
+    radius = 0.7,
+    main = "Pie Chart",
+    border = "Black",
+    col = c("white", "darkslategrey")
+    )
+```
+
+We can also put a border around the pie chart, as follows :
+
+```{r piechart2}
+
+pie(Proportion,
+    radius = 0.7,
+    main = "Pie Chart",
+    border = "Black",
+    col = c("white", "darkslategrey")
+    )
+
+box()
+```
+
+### Box Plots
+
+A boxplot is appropriate for summarizing the distribution of a numeric variable.
+
+To get help on boxplot in R :
+
+```{r boxhelp, eval=FALSE}
+help("boxplot") #or,
+?boxplot
+```
+
+A boxplot is the visual display of the 5 level summary of a numeric variable.
+
+We can visually deduce the following metrices from a single boxplot :
+
+1. Minimum value
+2. 1st quartile
+3. Median/2nd quartile
+4. 3rd quartile
+5. Maximum value
+
+
+Let's produce a boxplot for *"LungCap"* :
+
+```{r boxplot1}
+boxplot(LungCap,
+        main = "Box Plot",
+        ylab = "Lung Capacity",
+        ylim = c(0,16),
+        las = 1,
+        col = "darkslategrey",
+        border = "black"
+      )
+```
+
+
+We can get the numeric values of the boxplot summary, as follows :
+
+```{r boxplotsummary}
+quantile(LungCap, probs = c(0, 0.25, 0.5, 0.75, 1))
+```
+
+We can also compare the distribution of a numerical variable for different elements/categories of a categorical variable, using box plots.
+
+Let's say, we want to see the distribution of *"LungCap"* of *"Male"* and *"Females"* :
+
+```{r BoxplotCategoryDist}
+boxplot(LungCap ~ Gender,
+        main = "Lung Capacity By Gender",
+        ylab = "Lung Capacity",
+        xlab = NULL,
+        names = c("Female", "Male"),
+        ylim = c(0,16),
+        las = 1,
+        col = c("darkslategrey","burlywood4"),
+        border = "black"
+      )
+```
+
+If we want to see the boxplots horizontally, then, we can do so by passing `horizontal = TRUE` inside `boxplot()` function :
+
+```{r HorizontalBoxplot}
+boxplot(LungCap ~ Gender,
+        main = "Lung Capacity By Gender",
+        xlab = "Lung Capacity",
+        ylab = NULL,
+        names = c("Female", "Male"),
+        ylim = c(0,16),
+        las = 1,
+        col = c("darkslategrey","burlywood4"),
+        border = "black",
+        horizontal = TRUE
+      )
+```
+
+If we want see the *"LungCap"* of only *"Males"* then :
+
+```{r BoxplotTwo}
+
+boxplot(LungCap[Gender == "male"],
+        main = "Lung Capacity of Males",
+        ylab = "Lung Capacity",
+        xlab = NULL,
+        names = "Male",
+        ylim = c(0,16),
+        las = 1,
+        col = "burlywood4",
+        border = "black"
+      )
+```
+
+#### Startified Box Plot
+
+Startified boxplots are useful for examining the relationship between a categorical and a numeric variable, within strata/groups defined by the variable.
+
+Let's create a *"AgeGroup"* variable from the categorical variable *"Age"* :
+
+```{r AgeGroup}
+
+AgeGroup = cut(Age, 
+               breaks = c(0,13,15,17,25),
+               labels = c("<13", "14-15", "16-17","18+")
+               )
+
+levels(AgeGroup)
+```
+
+Now, let's check whether the *"AgeGroup"* variable is working properly or, not by taking the first 5 elements from the *"Age"* category.
+
+```{r Checking}
+Age[0:5]
+AgeGroup[0:5]
+```
+So, we can see that our grouping works properly.
+
+Now, let's compare the lung capacity of smokers and non-smokers :
+
+```{r BoxplotSmokersLungcap}
+
+boxplot(LungCap ~ Smoke,
+        main = "Lung Capacity By Smoking Habits",
+        ylab = "Lung Capacity",
+        xlab = NULL,
+        names = c("Non-Smokers", "Smokers"),
+        ylim = c(0,16),
+        las = 1,
+        col = c("blue","red"),
+        border = "black"
+      )
+```
+
+We can see the that *"Non-Smokers"* have lower lung capacity than *"Smokers"* which seems incorrect and not taking the age factor into consideration might be the cause of this output.
+
+Let's compare the same output only for 18+ age group :
+
+```{r BoxplotSmokingLungcap18Plus}
+
+boxplot(LungCap[Age >= 18] ~ Smoke[Age >= 18],
+        main = "Lung Capacity By Smoking Habits (18+ Age Group)",
+        ylab = "Lung Capacity",
+        xlab = NULL,
+        names = c("Non-Smokers", "Smokers"),
+        ylim = c(7,15),
+        las = 1,
+        col = c("blue","red"),
+        border = "black"
+      )
+```
+
+Now, we got a more practical result, i.e.,among the 18+ age group, the lung capacity of non-smokers is higher than that of smokers
+
+Now, let's jump one step further and visualize the relationship between the lung capacity and smoking habits within each of the age strata.
+
+```{r StartifiedBoxplot}
+
+boxplot(LungCap ~ Smoke * AgeGroup,
+        main = "Lung Capacity By Smoking Habits Within Age Starta",
+        ylab = "Lung Capacity",
+        xlab = NULL,
+        axes = FALSE,
+        las = 2,
+        col = c("blue","red"),
+        border = "black"
+      )
+box()
+
+axis(2, at = seq(0,20,2), seq(0,20,2), las = 1)
+axis(1, at = c(1.5, 3.5, 5.5, 7.5), labels = c("<13", "14-15", "16-17","18+"))
+
+legend(x = 7.0, y = 2.8, 
+       legend = c("Non-Smokers", "Smokers"), 
+       col =c("blue","red"),
+       pch = 15, cex = 0.8)
+
+```
+
+
+### Histogram
+
+A histogram is appropriate for summarizing the distribution of a numeric variable.
+
+
+To get help on histogram in R :
+
+```{r histhelp, eval=FALSE}
+help("hist") #or,
+?hist
+```
+
+Let's plot a histogram for *"LungCap"* :
+
+```{r hist}
+hist(LungCap,
+     xlab = "Lung Capacity",
+     col = "seagreen",
+     border = "white",
+     las = 1
+     )
+```
+
+
+If we want *"Probability"* instead of *"Frequency"* in the *Y-axis* then, we can set 
+`freq = FALSE` or, `Prob = TRUE`, as follows :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+---
+title: "Data Visualization In Basic R Graphics"
+output: html_document
+---
+With the base R package, we can produce various plots to visualize our data but, the charts are less pleasing and we have to write complex R-codes too.
+
+So, for data visualization purpose, we mostly use the *"ggplot2"* package, that has sophisticated graphics.
+
+Still, let's see how we can generate some simple charts using the basic R graphics.
+
+### Scatter Plot
+
+Here is an example of a basic scatter plot in R :
+
+```{r scatter plot}
+
+X = 1:10
+Y = X^2
+
+plot(Y)
+```
+
+#### Analysing The *mtcars* Dataset
+
+- *mtcars* is a dataframe with 32 observations on 11 variables and comes with the base-R package.
+
+- The data was extracted from the *1974-Motor Trend US Magazine*, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles(1973-74 models).
+
+Let's have a summary view of *mtcars* dataset before plotting any chart :
+
+```{r mtcars summary}
+summary(mtcars)
+```
+
+Now, let's see a corelation between the `wt` (Car Weight) & `mpg` (Miles Per Gallon) :
+
+```{r mtcars scatter}
+attach(mtcars)
+
+plot(wt,mpg,
+     main = "Car Weight ~ MPG Scatter",
+     xlab = "Car Weight",
+     ylab = "Miles Per Gallon",
+     pch = 19)
+```
+
+### Line Plot
+
+Here is an example of a basic line plot in R :
+
+```{r Line plot}
+
+X = 1:10
+Y = cos(X)
+
+plot(X,Y,
+     type = "l")
+```
+
+### Bar Plot
+
+Here is an example of a basic line plot in R :
+
+```{r barplot}
+
+H = c(7, 12, 28, 5, 41)
+
+M = c("Mar", "Apr", "May", "Jun", "Jul")
+
+barplot(H, names.arg = M,
+        xlab = "Month",
+        ylab = "Revenue",
+        main = "Revenue Chart",
+        col = "darkseagreen",
+        border = "aliceblue"
+        )
+```
+
+
+
+

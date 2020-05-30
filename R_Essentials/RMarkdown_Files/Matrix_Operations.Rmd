@@ -1,0 +1,279 @@
+---
+title: "Matrix Operations In R"
+author: "Udit Kumar Chatterjee"
+output: html_document
+---
+
+## Matrix
+
+- Matrix is a rectangular arrangement of numbers in rows and columns.
+- Rows run horizontally and columns run vertically.
+
+### Creating Matrices
+
+1. General Way To Create A Matrix
+
+```{r}
+A = matrix( c(1,2,3,4,5,6,7,8,9),
+            nrow = 3,
+            ncol = 3,
+            byrow = TRUE )
+print(A)
+```
+
+- The first argument provides the input for matrix.
+- The second argument provides the number of rows.
+- The third argument provides the number of columns.
+- `byrow = TRUE` means the elemnts of matrix will be filled row-wise.
+- By default, `byrow = FALSE`, so the elements are arranged column-wise first.
+
+2. Matrix with Single Constant Value
+
+- If we have to create a matrix where all the rows and columns are to be filled with a single constant element then we can use the following code :
+
+```{r}
+B = matrix(3,4,5)
+print(B)
+```
+
+3. Diagonal Matrix
+
+- In a diagonal matrix; except the primary diagonal, all other values are null.
+- We can create a diagonal matrix as follows :
+
+```{r}
+k = c(4,5,6)
+C = diag(k,3,3)
+print(C)
+```
+
+4. Identity Matrix
+
+- An identity matrix is a diaagonal matrix with all the diagonal element as 1.
+
+```{r}
+I = diag(1,3,3)
+print(I)
+```
+
+### Exploring A Matrix
+
+- To find the size of a matrix :
+
+```{r}
+dim(A)
+```
+- To find the number of rows in a matrix :
+
+```{r}
+nrow(A)
+```
+- To find the number of columns in a matrix :
+
+```{r}
+ncol(A)
+```
+- To find the length of the matrix, i.e., total number of elements in a matrix :
+
+```{r, eval = FALSE}
+length(A)
+```
+
+or,
+
+```{r}
+prod(dim(A))
+```
+
+### Accessing Matrix Elements
+
+- Strings can be assigned as the names of rows and columns using `rownames()` and `colnames()` functions.
+- Let's create a (3X3) matrix "M" with appropriate row and columns names :
+
+```{r}
+elements = c(10,20,30,40,50,60,70,80,90)
+
+M = matrix(elements, 3, 3, byrow = T)
+colnames(M) = c("a", "b", "c")
+rownames(M) = c("d","e", "f")
+
+print(M)
+```
+- To access the 1st and 2nd column of the matrix :
+
+```{r}
+M[,1:2]
+```
+
+- To access the 1st and 3rd columns using the assigned column names :
+
+```{r}
+M[,c("a", "c")]
+```
+
+- To access the 1st and 3rd rows using the assigned row names :
+
+```{r}
+M[c("d","f"),]
+```
+
+- To access the element of 2nd row and 3rd column :
+
+```{r}
+M[2,3]
+```
+- To get all the elements of the 1st column :
+
+```{r}
+M[,1]
+```
+- To get all the elements of the 2nd row :
+
+```{r}
+M[2,]
+```
+- To access all the elements of the matrix except the 2nd column :
+
+```{r}
+M[,-2]
+```
+
+
+
+- To access all the elements of the matrix except the 2nd row :
+
+```{r}
+M[-2,]
+```
+
+### Colon Operator & Sub-Matrix
+
+- Colon operator can be used to create a row matrix :
+
+```{r}
+1:10 #List of numbers from 1 to 10
+10:1 #List of numbers from 10 to 1
+```
+
+- Create a sub-matrix from matrix "M" that has first 3 rows and first two columns :
+
+```{r, eval= FALSE}
+M[1:3,1:2]
+```
+Or,
+
+```{r, eval= FALSE}
+M[1:3,-3]
+```
+Or,
+```{r}
+M[,1:2]
+```
+
+- Create a sub-matrix from matrix "M" that has 1st and 3rd row elements of 1st 2 columns :
+
+```{r, eval= FALSE}
+M[c(1,3),1:2]
+```
+or,
+```{r}
+M[c(1,3),c(1,2)]
+```
+
+### Matrix Concatenation
+
+- Matrix concatenation refers to merging of row or, column to a matrix.
+- Concatenation of a row to a matix is done using `rbind()`.
+- Concatenation of a column to a matrix is done using `cbind()`.
+- Consistency of the dimensions between the matrix and the vectors should be checked before concatenation.
+
+Let's add an additional row to the matrix "A" :
+
+```{r}
+print(A)
+```
+```{r}
+X = matrix(c(10,11,12),1,3)
+print(X)
+```
+```{r}
+Y = rbind(A,X)
+print(Y)
+```
+
+Similarly, lets add an additional column to matrix "A"
+
+```{r}
+P = matrix(c(30,60,90),3,1)
+print(P)
+```
+```{r}
+Q = cbind(A,P)
+print(Q)
+```
+
+### Matrix Algebra
+
+In Matrix algebra, we have
+
+- Matrix Addition
+- Matrix Subtraction
+- Matrix Multiplication (Regular)
+- Matrix Multiplication (Elementwise)
+- Matrix Division (Elementwise)
+
+
+Let's create 2 sample matrix of (3X3) order to perform such operations :
+
+```{r}
+
+mat1 = matrix(c(1,2,3,4,5,6,8,9,1),3,3, byrow = T)
+mat2 = matrix(c(3,1,3,4,2,1,5,1,2),3,3, byrow = T)
+
+print(mat1)
+```
+```{r}
+print(mat2)
+```
+
+1. Matrix Addition :
+
+```{r}
+mat1 + mat2
+```
+
+2. Matrix Subtraction :
+
+```{r}
+mat1 - mat2
+```
+
+3. Matrix Multiplication (Regular) :
+
+```{r}
+mat1 %*% mat2
+```
+
+4. Matrix Multiplication (Elementwise) :
+
+```{r}
+mat1 * mat2
+```
+
+5. Matrix Division (Elementwise) :
+
+```{r}
+mat1 / mat2
+```
+
+
+
+
+
+
+
+
+
+
+
+

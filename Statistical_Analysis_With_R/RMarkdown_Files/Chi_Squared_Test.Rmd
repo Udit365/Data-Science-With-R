@@ -1,0 +1,158 @@
+---
+title: "Chi Squared Test"
+---
+The chi-squared test of independence is a method appropriate for testing independence between two categorical variables.
+
+Let's first import and attach the required dataset for analysis
+
+```{r dataload}
+LungCapData = read.table(file = "Dataset/LungCapData.txt", header = TRUE, sep = "\t")
+attach(LungCapData)
+```
+
+Let's test the independece between ***Gender*** variable and ***Smoke*** variable.
+
+Before jumping into the test, lets analyze the dataset first.
+
+The class of the comparing variables are :
+
+```{r classtest1}
+class(Gender)
+```
+```{r classtest2}
+class(Smoke)
+```
+
+The elements present under the variables are :
+
+```{r elementsgender}
+levels(Gender)
+```
+```{r elementssmoke}
+levels(Smoke)
+```
+
+In case we want to know a brief information about chi-squared test, we can simple pass the following command to see help
+
+```{r help_chitest, eval=FALSE}
+help("chisq.test")
+#or,
+?chisq.test
+```
+
+Now, Let's first create a contengency table to perform the test :
+
+```{r contengency table}
+Tab = table(Gender,Smoke)
+Tab
+```
+Let's visualize the data :
+
+```{r Clusteredbarplot}
+barplot(Tab, beside = TRUE, legend=TRUE)
+```
+
+From the above chart, it seems that the smoking group has more females than males and the non-smoking group has more males than females.
+
+So, there might be some relation between the variables.
+
+Let's perform the chi-squared test to validate our hypothesis.
+
+Ho : The variables are independent, i.e., no association between the variables
+Ha : The variables are dependent, i.e., there is an association between the variables
+
+Now, lets perform the chi squared test :
+
+```{r chitest}
+Chi = chisq.test(Tab, correct = T)
+Chi
+```
+ As the ***p-Value*** of this test is high enough (18.6%), so, we failed to reject the null hypothesis.
+ 
+So, from the chi-squared test, it is evident that the variables are independent of each other.
+ 
+ 
+Let's see what attributes are stored :
+
+```{r attribute}
+attributes(Chi)
+```
+
+Now, let's see the expected table of our chi-squared test :
+
+```{r expectedtab}
+Chi$expected
+```
+
+### Measures of Association
+
+The various measures of association are :
+
+1. Relative Risk (RR)
+2. Odds Ration (OR)
+3. Attribute Risk/Risk Difference (RD)
+
+
+In the chi-squared test, we found that the variables are independent but, it doesn't gave us any idea about the strength/association between the variables.
+
+All of the above are measures of direction and the strength of the association between two categorical variables.
+
+To find our RR, OR & RD, we need an additional package.
+
+Let's load the package
+
+```{r packageload}
+library(epiR)
+```
+To get any help on this package :
+
+```{r packagehelp, eval=FALSE}
+help(package=epiR)
+```
+
+To calculate the various measures , we have to pass the following code into our contigency table :
+
+```{r ratiocalculate}
+epi.2by2(Tab, method = "cohort.count", conf.level = 0.95)
+```
+
+
+- For case control studies, we have to pass `method="case.control"` as the argument and the default `conf.level` is 95%.
+
+- RR will not be returned in case of ***Case Control Studies***.
+
+Looking at the odds ration, we can say that the odds of a female not smoking is 0.71 times the odds of a male not smoking.
+
+So, if we take the inverse of this
+
+```{r inverseodd}
+1/0.71
+```
+So, we can say that the odds of a male not smoking is 1.4 times of the odds of a female not smoking.
+
+
+Its better to arrange our contigency table in the default format, i.e.,
+
+```{r contigency format}
+elements = c(44, 314, 33, 334)
+
+ContTab = matrix(elements, nrow = 2, ncol = 2, byrow = T)
+rownames(ContTab) = c("Female", "Male")
+colnames(ContTab) = c("Yes", "No")
+
+ContTab
+```
+
+Now, lets find out the different measures of association :
+
+```{r associationmeasures}
+epi.2by2(ContTab, method = "cohort.count")
+```
+From the above analysis we can see the odds ratio contains 1 . This indicate that the odds ratio is not significant.
+
+But, from here we can directly interpret that the odds of a male not smoking is 1.42 time to that of a female not smoking.
+
+
+
+
+

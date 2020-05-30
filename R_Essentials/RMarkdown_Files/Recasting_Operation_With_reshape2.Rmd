@@ -1,0 +1,112 @@
+---
+title: "Recasting With `reshape2` Library"
+author: "Udit Kumar Chatterjee"
+output: html_document
+---
+
+### RECASTING
+
+- Using the `reshape2` package, we can perform the recasting operation on the dataframe.
+- Recasting is a process of manipulating a dataframe in terms of its variable.
+- Recasting has two steps -:
+  - Melting
+  - Casting
+- The types of variable used for recasting are -:
+  - Identifier Variable
+  - Measurement Variable
+  
+#### Identifier Variable
+
+- Discrete variables like "Name", "Month" etc.
+
+#### Measurement Variables
+
+- Numeric variables like "Weight", "Age" etc.
+- Categorical and date variable are not measurement variables.
+
+Let's create a dataframe for our illustration :
+
+```{r}
+Name = c("Senthil", "Senthil", "Sam", "Sam")
+Month = c("Jan", "Feb", "Jan", "Feb")
+BS = c(141.2, 139.3, 135.2,160.1)
+BP = c(90, 78, 80, 81)
+
+ed = data.frame(Name, Month, BS, BP)
+print(ed)
+```
+
+### `reshape2` Installation For Recasting Operation
+
+- For recasting operation, we need a R-library named `reshape2`.
+- We have to write the following code for installing and calling the library into our console :
+
+```{r, eval = FALSE}
+install.packages("reshape2") #For installing the package
+library("reshape2") #For calling the package
+````
+
+
+#### The Melt Operation :
+
+The following code perfroms the "melt" operation :
+
+```{r}
+library("reshape2")
+DF = melt( ed, 
+           id.vars = c("Name","Month"), 
+           measure.vars = c("BS","BP") )
+print(DF)
+```
+
+- By `id.vars` we have loaded our identifier variables.
+- By `Measure.vars` We have loaded our measurement variables.
+- The melt operation basically unpivots the measurement variables.
+
+#### The Cast Operation :
+
+- If we have two columns with categorical variables named as `col1` And `col2` then,
+  - `col1 ~ col2` Means we want to show `col1` by `col2`.
+  - So, `col1` will remain as it is but, each element of `col2` has to become variables/columns to show the respective values of `col1`.
+  
+Let's see an example of casting operation as follows -:
+
+```{r}
+library("reshape2")
+DF2 = dcast(DF, 
+            variable+Month ~ Name, 
+            value.var = "value")
+print(DF2)
+```
+
+- `variable+Month ~ Name` means we want to see `Variable` and `Month` by `Names`. So, the attributes of the `Names` column will become separate variables.
+- `Value.var` arguments takes the entity(value) by which we want to show the attributes of `Names` column against the `Variable` and `Month`.
+- The cast operation pivots an identifier variable.
+
+#### Recasting Operation In Single Step
+
+We can perform both melting and casting operations on the dataframe `ed` in a single line as follows :
+
+```{r}
+library("reshape2")
+DF3 = recast(ed,
+             variable+Month ~ Name, 
+             id.var = c("Name","Month"))
+
+print(DF3)
+```
+
+- The first argument takes the dataframe `ed` to work upon.
+- The second argument performs the casting operation.
+- The third argument performs the melting operation by indicating the identity variables to the machine with `id.var` command.
+- The machine considers the rest variables as measurement variables once we define our identity variables.
+
+
+
+
+
+
+
+
+
+

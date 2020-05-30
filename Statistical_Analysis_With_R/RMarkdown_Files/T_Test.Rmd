@@ -1,0 +1,196 @@
+---
+title: "t-Test"
+---
+
+
+### One Sample t-Test
+
+To perfrom a one sample t-Test, let's first get the data :
+
+```{r Getting the data}
+LungCapData = read.table(file = "Dataset/LungCapData.txt", header = T, sep = "\t")
+```
+
+Let's see the variables present in our dataset :
+
+```{r view the headers}
+names(LungCapData)
+```
+
+```{r checking Class}
+class(LungCapData$LungCap)
+```
+
+To get any additional help on *t-test* :
+
+```{r help, eval=FALSE}
+help("t.test")
+#or,
+?t.test
+```
+
+Let's visualize the data first :
+
+```{r boxplot/}
+boxplot(LungCapData$LungCap)
+```
+
+Let's say,
+
+Ho:  mean = 8
+Ha: mean < 8
+
+Let's perform the hypothesis testing
+
+```{r hypothesis test}
+t.test(LungCapData$LungCap, mu=8, alternative = "less", conf.level = 0.95)
+```
+As the p-value is more than 5% so, we failed to reject the Ho and hence, the sample mean is less than 8.
+
+The default t-test in R is two sided, so, if we not include the argument `alternative="less"` then, R will perform a two sided hypothesis test.
+
+To see the attributes of the t-Test, we can store the test results in a variable and then pass the `attributes` function :
+
+```{r test attributes}
+Test = t.test(LungCapData$LungCap, mu=8, alternative = "less", conf.level = 0.95)
+attributes(Test)
+```
+
+To only see a specific attribute of the test :
+
+```{r t-test conf. int}
+Test$conf.int
+```
+
+```{r t-test p-value}
+Test$p.value
+```
+
+### Paired T-Test
+
+Let's first get the data :
+
+```{r BP data}
+
+BPData = read.table(file = "Dataset/BloodPressure.txt",header = T, sep = "\t")
+
+```
+
+Let's see the data:
+
+```{r eda}
+names(BPData)
+```
+dimesion of the dataset is :
+
+```{r size}
+dim(BPData)
+```
+
+Let's visualize the data :
+
+```{r boxplot}
+attach(BPData)
+boxplot(Before,After)
+```
+
+Let's plot a scatter plot between the "Before" and "After" result to see a correlation between them :
+
+```{r correlation}
+plot(Before, After)
+abline(a=0, b=1) #slope = 0 and intercept = 1
+```
+
+Let's perform a two sided hypothesis test on our data :
+
+Ho: Mean difference is zero, i.e., no chnage is SBP before and after
+Ha: Mean difference is not zero, i.e., there is a change is SBP
+
+```{r paired t-test}
+t.test(Before, After, mu=0, alternative = "two.sided", paired = TRUE, conf.level = 0.99)
+```
+As the *p-Value* is very small, hence we reject the null hypothesis.
+
+If we change the order of "Before" and "After" then, it will only change the sign of `mean if the differences`, `Confidence Interval` and `t-Statistics`.
+
+### Independent Two Sample t-Test
+
+- A parametric method appropriate for examining the difference in means for 2 populations.
+
+- A way of examining the relationship between a numeric outcome variable (Y) and a categorical explanatory variable (X, with 2 levels)
+
+We will be examining the relationship between the **Smoking Habits** and its effect on **Lung Capacity**.
+
+Let's see the class of these two variables first.
+
+```{r checking the class}
+class(LungCapData$LungCap)
+class(LungCapData$Smoke)
+```
+Let's visualize the data :
+
+```{r boxplot Lungcap~Smoke}
+attach(LungCapData)
+boxplot(LungCap ~ Smoke)
+```
+
+Let's perform a hypothesis test :
+
+Ho: Mean Lung capcity of smokers and non-smokers are same
+Ha: Mean Lung capacity of smokers and non-smokers are different.
+
+Let's perform a two sided t-test -:
+
+```{r two sided t-test}
+t.test(LungCap ~ Smoke, mu=0, alt="two.sided", conf=0.95, var.eq=F, Paired=F )
+```
+
+As the **p-Value** is small, so we reject the null hypothesis and thus, the mean lung capacity of smokers and non-smokers are different.
+
+By the argument `var.eq=F`, we considered non-equal variance for the groups.
+
+```{r variance check}
+
+var(LungCap[Smoke=="yes"])
+var(LungCap[Smoke=="no"])
+```
+We can clearly see that the variance in lung capacity for people who doesn't smoke is almost double of those who smoke.
+
+### Levene's Test
+
+This test is used to check whether the population variances are equal or, not.
+
+So, let's perform an hypothesis test on this.
+
+Ho: Population variances are equal
+Ha: population variances are not equal
+
+```{r loading package to perform test}
+library(car)
+```
+
+Let's now perform the **Levene's Test**
+
+```{r Levene test}
+leveneTest(LungCap~Smoke)
+```
+
+From the above test, we can see :
+
+***p-Value :*** 0.00034 = 0.034%
+
+As the *p-Value* is very small, so, we reject the null hypothesis and have evidence to believe that the population have unequal variances.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
