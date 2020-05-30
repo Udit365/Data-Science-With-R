@@ -9,7 +9,7 @@ To perform One-way ANOVA, we have a dataset that shows weight loss for different
 So, let's load the data first.
 
 ```{r dataload}
-wtlossdata = read.table(file = "Dataset/DietWeigthLoss.txt", header=T, sep = "\t")
+wtlossdata = read.table(file = "../Dataset/DietWeigthLoss.txt", header=T, sep = "\t")
 attach(wtlossdata)
 ```
 
