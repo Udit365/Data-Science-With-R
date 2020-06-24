@@ -7,7 +7,7 @@ It would not be wrong if we say that statistics starts with an interest to quant
 So, let's load the "Lung Capacity Dataset" to produce the numerical summeries of categorical and numerical variables.
 
 ```{r dataload}
-LungCapData = read.table(file = "Dataset/LungCapData.txt", header = TRUE, sep = "\t")
+LungCapData = read.table(file = "../Dataset/LungCapData.txt", header = TRUE, sep = "\t")
 head(LungCapData)
 attach(LungCapData)
 ```
@@ -16,8 +16,7 @@ The above table gives us a brief look over the data andd class of each variable.
 Now, let's see various summarizing options for the categorical and numerical variables
 
 
-### Summarizing Categorical Variables
-
+## Summarizing Categorical Variables
 
 Categorical variables can be summarized using a frequency/proportion table and to produce a frequency table, we use either use the `table()` function or, the `summary()` function :
 
@@ -30,7 +29,7 @@ Or,
 summary(Smoke)
 ```
 
-So, we can see, we have `648` observations for `no` and `77` observations for `yes` within the categorical variable `Smoke`.
+So, we can see, we have $648$ observations for `no` and $77$ observations for `yes` within the categorical variable `Smoke`.
 
 To get the total number of observations in a variable, we use the `length()` command :
 
@@ -50,9 +49,9 @@ To produce a two-way table or, contengency table between `Gender` and `Smoke`, w
 table(Smoke, Gender)
 ```
 
-***Note :*** The first variable passed in the `table()` function is taken into the rows.
+***Note :*** *The first variable passed in the `table()` function is taken into the rows.*
 
-### Summarizing Numeric Variables
+## Summarizing Numeric Variables
 
 We can get the mean of our numeric variable `LungCap` with `mean()` function :
 
@@ -64,7 +63,7 @@ To get a trimmed mean :
 ```{r meantrim}
 mean(LungCap, trim = 0.10)
 ```
-***Note :*** By the argument `trim = 0.10`, we have removed the top and bottom 10% observations from the mean calculation.
+***Note :*** *By the argument `trim = 0.10`, we have removed the top and bottom $10%$ observations from the mean calculation.*
 
 To calculate median, we can use the `median()` command :
 
@@ -138,7 +137,7 @@ To calculate the Pearson's correlation between `Age` and `LungCap`, we can use t
 cor(LungCap, Age)
 ```
 
-***Note :*** The default correlation in `cor()` function is Pearson's correlation but, if we need any other type of correlation, then, we have to pass an additional argument `method`.
+***Note :*** *The default correlation in `cor()` function is Pearson's correlation but, if we need any other type of correlation, then, we have to pass an additional argument `method`.*
 
 To get Spearman's correlation between `Age` and `LungCap`
 
@@ -185,20 +184,3 @@ We can also pass the entire dataset inside the `summary()` command to get a curs
 ```{r tablesummary}
 summary(LungCapData)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
