@@ -1,10 +1,9 @@
 ---
-title: "Dataframes In R"
-author: "Udit Kumar Chatterjee"
+title: "Dataframes Basics"
 output: html_document
 ---
 
-### Create A Dataframe
+## Creating A Dataframe
 
 Let's create a dataframe using 3 vectors :
 ```{r}
@@ -18,13 +17,13 @@ print(df)
 
 ### Accessing Elements From A Dataframe
 
-- To access the 1st and 2nd row of the dataframe `df`, we have to write the following code :
+To access the 1st and 2nd row of the dataframe `df`, we have to write the following code :
 
 ```{r}
 print(df[1:2,])
 ```
 
-- To access the 1st and 2nd column of the dataframe `df`, we have to write the following code :
+To access the 1st and 2nd column of the dataframe `df`, we have to write the following code :
 
 ```{r, eval= FALSE}
 print(df[,1:2])
@@ -66,28 +65,28 @@ or, we can directly do this from a GUI by using the following command
 edit(df)
 ```
 
-### GUI To Create & Edit Dataframe
+### Utilising GUI to Create & Edit Dataframe
 
 We can create and edit the dataframes from GUI by using the following simple codes :
 
-- For creating an empty dataframe :
+For creating an empty dataframe :
 
 ```{r,eval=FALSE}
 MyTable = data.frame()
 ```
-- For adding data to the above created dataframe :
+For adding data to the above created dataframe :
 
 ```{r, eval= FALSE}
 MyTable = edit(MyTable)
 ```
-- To view the created dataframe :
+To view the created dataframe :
 ```{r, eval=FALSE}
 View(MyTable)
 ```
 
 ### Adding Extra Rows & Columns To Dataframe
 
-- For adding an extra row, we can use `rbind()` function :
+For adding an extra row, we can use `rbind()` function :
 
 ```{r}
 df = rbind(df,data.frame(vec1 = 4,
@@ -95,7 +94,7 @@ df = rbind(df,data.frame(vec1 = 4,
                          vec3 = "For Scaleup"))
 print(df)
 ```
-- For adding an extra column, we can use `cbind()` function :
+For adding an extra column, we can use `cbind()` function :
 
 ```{r}
 df = cbind(df, vec4 = c(10,20,30,40))
@@ -113,18 +112,18 @@ df2 = df[-3,-1]
 print(df2)
 ```
 
-So, just by puttinge a negative sign (-), we can remove the desired entries of a dataframe.
+So, just by puttinge a negative sign (`-`), we can remove the desired entries of a dataframe.
 
 #### Conditional Deletion
 
-- To delete the 3rd column :
+To delete the 3rd column :
 
 ```{r}
 df3 = df[,!names(df) %in% c("vec3")]
 print(df3)
 ```
 
-- To delete the 3rd row :
+To delete the 3rd row :
 
 ```{r}
 df4 = df[!df$vec1==3,]
@@ -133,23 +132,16 @@ print(df4)
 
 ### Manipulating Rows - The Factor Issue
 
-- When character columns are created in a data frame, they became factors.
-- `df[3,1] = 3.1` command changes the value of 3rd row and 1st column to `3.1` in the dataframe `df` and also changes the datatype of `Vec1` from Integer datatype to decimal. But, `df[3,3] = "Others"` command neither changes the value of  3rd column and 3rd row to `Others` nor it changes the datatype of `Vec3` (A character column) but, rather returns an error.
-- To avoid such factor issue of character columns, we have to pass an additional argument in the data frame command, as follows -:
+When character columns are created in a data frame, they stored as factors.
+
+`df[3,1] = 3.1` command changes the value of 3rd row and 1st column to `3.1` in the dataframe `df` and also changes the datatype of `Vec1` from Integer datatype to decimal. But, `df[3,3] = "Others"` command neither changes the value of  3rd column and 3rd row to `Others` nor it changes the datatype of `Vec3` (A character column) but, rather returns an error.
+
+To avoid such factor issue of character columns, we have to pass an additional argument in the data frame command, as follows -:
 
 ```{r}
 df=data.frame(vec1,vec2,vec3,stringsAsFactors = FALSE)
+print(df)
 ```
-- By default, the `stringAsFactors` argument is `TRUE` and that's why it takes a character column as a factor.
-- After passing the `stringAsFactor` argument as `FALSE`, if we command  `df[3,3] = "Others"` then, the value of 3rd column and 3rd row will be changed to `Others`.
+By default, the `stringAsFactors` argument is `TRUE` and that's why it takes a character column as a factor.
 
-
-
-
-
-
-
-
-
-
-
+After passing the `stringAsFactor` argument as `FALSE`, if we command  `df[3,3] = "Others"` then, the value of 3rd column and 3rd row will be changed to `Others`.

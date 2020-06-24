@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization In Basic R Graphics"
+title: "Data Visualization with Basic R Graphics"
 output: html_document
 ---
 With the base R package, we can produce various plots to visualize our data but, the charts are less pleasing and we have to write complex R-codes too.
@@ -8,7 +8,7 @@ So, for data visualization purpose, we mostly use the *"ggplot2"* package, that 
 
 Still, let's see how we can generate some simple charts using the basic R graphics.
 
-### Scatter Plot
+## Scatter Plot
 
 Here is an example of a basic scatter plot in R :
 
@@ -20,11 +20,11 @@ Y = X^2
 plot(Y)
 ```
 
-#### Analysing The *mtcars* Dataset
+### Analysing The *mtcars* Dataset
 
-- *mtcars* is a dataframe with 32 observations on 11 variables and comes with the base-R package.
+**mtcars** is a dataframe with 32 observations on 11 variables and comes with the base-R package.
 
-- The data was extracted from the *1974-Motor Trend US Magazine*, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles(1973-74 models).
+The data was extracted from the *1974-Motor Trend US Magazine*, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles(1973-74 models).
 
 Let's have a summary view of *mtcars* dataset before plotting any chart :
 
@@ -32,7 +32,7 @@ Let's have a summary view of *mtcars* dataset before plotting any chart :
 summary(mtcars)
 ```
 
-Now, let's see a corelation between the `wt` (Car Weight) & `mpg` (Miles Per Gallon) :
+Now, let's see a correlation between the `wt` (Car Weight) & `mpg` (Miles Per Gallon) :
 
 ```{r mtcars scatter}
 attach(mtcars)
@@ -44,7 +44,7 @@ plot(wt,mpg,
      pch = 19)
 ```
 
-### Line Plot
+## Line Plot
 
 Here is an example of a basic line plot in R :
 
@@ -57,7 +57,7 @@ plot(X,Y,
      type = "l")
 ```
 
-### Bar Plot
+## Bar Plot
 
 Here is an example of a basic line plot in R :
 

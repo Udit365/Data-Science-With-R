@@ -1,15 +1,15 @@
 ---
 title: "Functions"
-author: "Udit Kumar Chatterjee"
 output: html_document
 ---
 
-- A function accepts input arguments and produces output by executing valid R commands present in the function.
+A function accepts input arguments and produces output by executing valid R commands present in the function.
+
 - Function name and file names need not to be the same.
 - A file can have one or, more function definitions.
 - Functions are created using the command `function()`
 
-Syntax :
+***Syntax :***
 
 ```{r, eval = FALSE}
 f = function(arguments){
@@ -20,18 +20,18 @@ f = function(arguments){
 
 ***Example :***
 
-- We have already created a R-script file that consists of various custom function like `volcylinder()` , `volsacylinder_mimo()` etc. Now, in order to apply them, we need to call and load the function file and then use it.
+We have already created a R-script file that consists of various custom function like `volcylinder()` , `volsacylinder_mimo()` etc. Now, in order to apply them, we need to call and load the function file and then use it.
 
-- Let's calculate the volume of a cylinder that has a diameter of 15 units and lenggth of 30 units, by using the custom function `volcylinder()`
+Let's calculate the volume of a cylinder that has a diameter of $15 units$ and length of $30 units$, by using the custom function `volcylinder()`
 
 
 ```{r}
-source("Custom Functions.R") #Invoking and loading the custom functions
+source("../User_Defined_Function_Files/Custom_Functions.R") #Invoking and loading the custom functions
 v = volcylinder(15,30)
 v
 ```
 
-### Passing Arguments To Functions
+### Passing Arguments to Functions
 
 We can pass arguments to the function in the following ways :
 
@@ -53,7 +53,7 @@ v
 
 ### Lazy Function Evaluation
 
-- Functions are lazily evaluated, which means that if some arguments are missing, then, the function is still executed as long as the execution doesn't involve these arguments
+Functions are lazily evaluated, which means that if some arguments are missing, then, the function is still executed as long as the execution doesn't involve these arguments
 
 ***Example :***
 
@@ -83,15 +83,14 @@ vol
 
 ### MIMO Functions
 
-- Functions in R can take multiple input objects but, returns only one object as output.
-- However, this is not a limitation because, list objects can also be returns by a function.
+Functions in R can take multiple input objects but, returns only one object as output.However, this is not a limitation because, list objects can also be returned by a function.
 
 ***Example :***
 
-- We have created a custom function called `volsacylinder_mimo()` to calculate both volume and surface area of a cylinder by taking diameter and length of the cylinder as input.
+We have created a custom function called `volsacylinder_mimo()` to calculate both volume and surface area of a cylinder by taking diameter and length of the cylinder as input.
 
 ```{r}
-source("Custom Functions.R")
+source("../User_Defined_Function_Files/Custom_Functions.R")
 result = volsacylinder_mimo(dia = 12, len = 15)
 
 result["Volume"] #Getting only volume
@@ -100,9 +99,9 @@ result["Surface Area"] #Getting only surface area
 
 ### Inline Functions
 
-- Inline functions comes very handy when we have to find out the output of a complex polynomial equation for various input values
+Inline functions comes very handy when we have to find out the output of a complex polynomial equation for various input values
 
-***For Example :***
+***Example :***
 
 ```{r}
 func = function(x){x^2+4*log(x)+5*x+2}
@@ -119,7 +118,7 @@ func(23)
 
 ### Looping Over Objects
 
-There are few looping functions available in R that are pretty useful when working interactively on a command line.</br>
+There are few looping functions available in R that are pretty useful when working interactively on a command line.
 
 Those functions are as follows :
 
@@ -132,12 +131,14 @@ Those functions are as follows :
 
 #### 1. `apply()` Function
 
-- Applies a given function over the margins of given array.
-- ***Syntax :***
-  ```{r, eval = F}
+Applies a given function over the margins of given array.
+
+***Syntax :***
+```{r, eval = F}
   apply(array, margins, function, ...)
-  ```
-- Here, `margins` refer to the dimension of the array along which the function need to be applied.
+```
+Here, `margins` refer to the dimension of the array along which the function need to be applied.
+
   - For rows, `margin = 1`
   - For columns, `margin = 2`
   
@@ -148,7 +149,6 @@ K = matrix(1:9,3,3)
 K
 ```
 ```{r}
-
 apply(K,1,sum) #applying the sum function across the rows
 ```
 ```{r}
@@ -159,10 +159,11 @@ apply(K,2,sum) #applying the sum function across the columns
 
 - Used to apply a function over a list.
 - Always returns a list of the same length as the input list.
-- ***Syntax :***
-  ```{r, eval = F}
+
+***Syntax :***
+```{r, eval = F}
   lapply(list, function, ...)
-  ```
+```
 ***Example :***
 
 *Let's take 2 matrices as the elements of a list and find their determinant in the output using in-built `det` function*
@@ -182,16 +183,17 @@ determinant_list
 
 - Multivariate version of `lapply()`.
 - A function can be applied over several lists simultaneously.
-- ***Syntax :***
-  ```{r, eval = F}
+
+***Syntax :***
+```{r, eval = F}
   mapply(function, list1,list2,list3 ...)
-  ```
+```
 ***Example :***
 
 *Let's apply the custom function `volcylinder()` over a set of diameters and lengths*
 
 ```{r}
-source("Custom Functions.R")
+source("../User_Defined_Function_Files/Custom_Functions.R")
 
 dia = list(1,2,3,4,5,6)
 len = list(7,8,9,10,11,12)
@@ -203,11 +205,12 @@ vol
 
 #### 4. `tapply()` Function
 
-- Used to apply a function over subset of vectors given by a combination of factors.
-- ***Syntax :***
-  ```{r, eval = F}
+Used to apply a function over subset of vectors given by a combination of factors.
+
+***Syntax :***
+```{r, eval = F}
   tapply(vector, factors, function ...)
-  ```
+```
 ***Example :***
 
 *Let's apply the sum function to add the `VALUES` by `ID`*
@@ -219,15 +222,3 @@ VALUES = c(1:9)
 
 tapply(VALUES, ID, sum)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
