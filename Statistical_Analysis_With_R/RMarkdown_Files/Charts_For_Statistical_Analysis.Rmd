@@ -6,7 +6,7 @@ title: "Charts For Statistical Analysis"
 To plot various charts, let's first load and attach the *"Lung Capacity Dataset".
 
 ```{r dataload}
-LungCapData = read.table(file = "Dataset/LungCapData.txt", header = T, sep = "\t")
+LungCapData = read.table(file = "../Dataset/LungCapData.txt", header = T, sep = "\t")
 attach(LungCapData)
 head(LungCapData)
 ```
