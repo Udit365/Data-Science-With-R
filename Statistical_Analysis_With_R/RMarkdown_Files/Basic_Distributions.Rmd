@@ -11,7 +11,7 @@ Some of the basic statistical distributions are :
 6. Exponential Distribution
 7. Chi Squared Distribution
 
-To get help on various distributions available the `stats` package of R, pass the following command :
+To get help on various distributions available in the `stats` package of R, pass the following command :
 
 ```{r disthelp, eval=FALSE}
 help("distributions") #or,
@@ -20,11 +20,11 @@ help("distributions") #or,
 
 ### Normal Distribution
 
-Let's say,a variable ***X*** is normally distributed with a known ***mean = 75*** and ***Standard Deviation (SD) = 5***.
+Let's say,a variable $X$ is normally distributed with a known $\mu = 75$ and $SD = 5$.
 
 So,
 
-`X ~ NORM(mu = 75, var = 25)
+$X \sim NORM(\mu = 75, \sigma^2 = 25)$
 
 To get some help on normal distribution in R :
 
@@ -34,21 +34,22 @@ help("pnorm")
 ?pnorm
 ```
 
-To find the probability of ***X <= 70***, i.e., `P(X <= 70)` is :
+To find the probability of $X <= 70$, i.e., $P(X <= 70)$ is :
 
 ```{r norm}
 pnorm(q=70, mean = 75, sd = 5, lower.tail = TRUE )
 ```
+
 - In R, `lower.tail=TRUE` is default argument.
 
-To find the probability of ***X >= 85***, i.e., `P(X >= 85)` is :
+To find the probability of $X >= 85$, i.e., $P(X >= 85)$ is :
 
 ```{r norm2}
 pnorm(q=85, mean = 75, sd = 5, lower.tail = FALSE )
 ```
-The `pnorm()` command can also be used to calculate the probability when ***z-Value*** is given.
+The `pnorm()` command can also be used to calculate the probability when $z$ value is given.
 
-To find the probability of ***z >= 1***, i.e., `P(z >= 1)` is :
+To find the probability of $z >= 1$, i.e., $P(z >= 1)$ is :
 
 ```{r norm3}
 pnorm(q=1, mean = 0, sd = 1, lower.tail = FALSE )
@@ -109,11 +110,11 @@ From the above histogram, we can see that even the distribution of random sample
 
 ### Binomial Distribution
 
-Let's say,a variable ***X*** is binomially distributed with ***n=20*** trials and ***p=1/6*** probability of success.
+Let's say,a variable $X$ is binomially distributed with $n=20$ trials and $p=1/6$ probability of success.
 
 So,
 
-`X ~ BIN(n = 20, p = 1/6)
+$X \sim BIN(n = 20, p = 1/6)$
 
 To get some help on binomial distribution in R :
 
@@ -123,28 +124,28 @@ help("dbinom")
 ?dbinom
 ```
 
-- The `dbinom` command is used to find the values for the probability density function of ***X, f(X)***
+The `dbinom` command is used to find the values for the probability density function of $X, f(X)$
 
 
-So, to find the probability of ***X=3***, i.e., `P(X=3)` :
+So, to find the probability of $X=3$, i.e., $P(X=3)$ :
 
 ```{r dbinom}
 dbinom(x=3, size = 20, prob = 1/6)
 ```
 
-So , the probability of exactly 3 successs on 20 trials is 23.7% (approx.)
+So , the probability of exactly $3$ successs on $20$ trials is $23.7\%$ (approx.)
 
-To find the probability of ***X=0 & X=1 & X=2 & X=3***, i.e., `P(X=0) & P(X=1) & P(X=2) & P(X=3) ` is :
+To find the probability of $X=0$ & $X=1$ & $X=2$ & $X=3$, i.e., $P(X=0)$ & $P(X=1)$ & $P(X=2)$ & $P(X=3)$ is :
  
 ```{r dbinom2}
 dbinom(x=0:3, size = 20, prob = 1/6)
 ```
 So, we can see :
 
-- Approx. 2.6% of getting 0 success in 20 trails
-- Approx. 10.4% of getting 1 success in 20 trails
-- Approx. 19.8% of getting 2 success in 20 trails
-- Approx. 23.7% of getting 3 success in 20 trails
+- Approx. $2.6\%$ of getting $0$ success in $20$ trails
+- Approx. $10.4\%$ of getting $1$ success in $20$ trails
+- Approx. $19.8\%$ of getting $2$ success in $20$ trails
+- Approx. $23.7\%$ of getting $3$ success in $20$ trails
 
 Let's plot a probability density function :
 
@@ -171,29 +172,29 @@ abline(v = 75, col = "red", lwd = 2)
 
 ```
 
-To find the probability of ***X <= 6***, i.e., `P(X <= 6)` is :
+To find the probability of $X <= 6$, i.e., $P(X <= 6)$ is :
 
 ```{r dbinom3a}
 sum(dbinom(x=0:3, size = 20, prob = 1/6))
 ```
 or,
-we can use the `pbinom()` command to get the probability distribution function of ***X, f(X)***
+we can use the `pbinom()` command to get the probability distribution function of $X, f(X)$
 ```{r pbinom}
 pbinom(q=3, size = 20, prob = 1/6, lower.tail = T)
 ```
 
-So, the probablity of getting 3 or, fewer success in 20 trials is approx. 56.6%.
+So, the probablity of getting $3$ or, fewer success in $20$ trials is approx. $56.6\%$.
 
 - The `rbinom()` command is used to take a random sample from a binomial distribution.
 - The `qbinom()` command is used to find quantiles for a binomial distribution.
 
 ### Poisson Distribution
 
-Let's say,a variable ***X*** follows a poisson distribution with a known rate of ***lamda=20***
+Let's say,a variable $X$ follows a poisson distribution with a known rate of $\lambda=20$
 
 So,
 
-`X ~ POISSON(lambda = 7)
+$X \sim POISSON(\lambda = 7)$
 
 To get some help on Poisson distribution in R :
 
@@ -202,28 +203,28 @@ help("dpois") #or,
 ?dpois
 ```
 
-- We can calculate the probabilities for Poisson distribution using the `ppois()` and `dpois()` commands
+We can calculate the probabilities for Poisson distribution using the `ppois()` and `dpois()` commands
 
-To find the probability of ***X=4***, i.e., `P(X=3)` :
+To find the probability of $X=4$, i.e., $P(X=3)$ :
 
 ```{r dpois}
 dpois(x = 4, lambda = 7)
 ```
 
-So, there is approximately 9% chance of exactly 4 occurances.
+So, there is approximately $9\%$ chance of exactly $4$ occurances.
 
-To find the probability of exactly ***X=0 & X=1 & X=2 &...& X=4***, i.e., `P(X=0) & P(X=1) & P(X=2) &...& P(X=4) ` is :
+To find the probability of exactly $X=0$ & $X=1$ & $X=2$ & $X=3$ & $X=4$, i.e., $P(X=0)$ & $P(X=1)$ & $P(X=2)$ & $P(X=3)$ & $P(X=4)$ is :
 
 ```{r dpois2}
 dpois(x = 0:4, lambda = 7)
 ```
 So, we can see :
 
-- Approx. 0.09% chance of exactly 0 occurances.
-- Approx. 0.6% chance of exactly 1 occurances.
-- Approx. 2.2% chance of exactly 2 occurances.
-- Approx. 5.2% chance of exactly 2 occurances.
-- Approx. 9.1% chance of exactly 4 occurances.
+- Approx. $0.09\%$ chance of exactly $0$ occurances.
+- Approx. $0.6\%$ chance of exactly $1$ occurances.
+- Approx. $2.2\%$ chance of exactly $2$ occurances.
+- Approx. $5.2\%$ chance of exactly $3$ occurances.
+- Approx. $9.1\%$ chance of exactly $4$ occurances.
 
 Let's plot a probability density function :
 
@@ -236,7 +237,7 @@ poislist
 
 Now, let's calculate the propability density for each element of list `binomlist`.
 
-```{r dbidist}
+```{r dbidist2}
 poisdens = dpois(poislist, lambda = 50)
 plot(poislist, poisdens, 
      type = "h",
@@ -250,33 +251,31 @@ abline(v = 50, col = "red", lwd = 2)
 
 ```
 
-To find the probability of ***X <= 4***, i.e., `P(X <= 4)` is :
+To find the probability of $X <= 4$, i.e., $P(X <= 4)$ is :
 
 ```{r dpois3}
 sum(dpois(x = 0:4, lambda = 7))
 ```
 or,
-we can use the `ppois()` command to get the probability distribution function of ***X, f(X)***
+we can use the `ppois()` command to get the probability distribution function of $X, f(X)$
 ```{r ppois1}
 ppois(q=4, lambda = 7, lower.tail = T)
 ```
 
-So, there is approximately 17.2% chance of exactly 4 or, fewer occurances.
+So, there is approximately $17.2\%$ chance of exactly $4$ or, fewer occurances.
 
-Similarly, to find the probability of ***X >= 12***, i.e., `P(X >= 12)` is :
+Similarly, to find the probability of $X >= 12$, i.e., $P(X >= 12)$ is :
 
 ```{r ppois2}
 ppois(q=12, lambda = 7, lower.tail = F)
 ```
 
-So, there is approximately 2.6% chance of exactly 12 or, more occurances.
+So, there is approximately $2.6\%$ chance of exactly $12$ or, more occurances.
 
 - The `rpois()` command is used to take a random sample from a Poisson distribution.
 - The `qpois()` command is used to find quantiles for a Poisson distribution.
 
 ### t Distribution
-
-## Getting Brief About **t-Distribution**
 
 To get help of *t-distribution*, we can simple write :
 
@@ -291,23 +290,23 @@ or,
 
 Let's say we are given :
 
-*t-statistics* = 2.3
-*Sample Size (n)* = 26
+$t-statistics = 2.3$
+$Sample \space Size (n) = 26$
 
 So, 
 
-*Degrees of freedom (df)* = n-1 = 25
+$df = n-1 = 25$
 
-To get *p(t > 2.3)* :
+To get $p(t > 2.3)$ :
 
 ```{r p-value from t-stat}
 pt(q = 2.3, df = 25, lower.tail = FALSE)
 ```
-So, by the argument `lower.tail = FALSE`, we mean we want to find the the area after `t > 2.3`.
+So, by the argument `lower.tail = FALSE`, we mean we want to find the the area after $t > 2.3$.
 
 #### Getting **Two sided p-value** :
 
-This is used to get the area above `t = 2.3` and below `t = -2.3`
+This is used to get the area above $t = 2.3$ and below $t = -2.3$
 
 To get this :
 
@@ -321,14 +320,12 @@ Or,
 pt(q=2.3, df=25, lower.tail = F) * 2
 ```
 
-### Calculating **t-value** for 95% Confidence :
+#### Calculating **t-value** for $95\%$ Confidence :
 
-95% confidence implies the *p-value* in each tail as 2.5%
+95% confidence implies the *p-value* in each tail as $2.5\%$
 
-So, to find *t-statistics* when *p-value of each tail is 2.5%* :
+So, to find *t-statistics* when *p-value of each tail is $2.5\%$* :
 
 ```{r t-value for 95% conf.}
 qt(p = 0.025, df = 25, lower.tail = T)
 ```
-
-
