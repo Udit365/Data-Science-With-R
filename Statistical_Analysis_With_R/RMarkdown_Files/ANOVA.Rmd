@@ -54,8 +54,8 @@ boxplot(WeightLoss ~ Diet)
 
 Let's define our null and alternate hypothesis for one-way ANOVA
 
-Ho: Mean weight loss is same for all the diets.
-Ha: Mean weight loss is different for atleast one diet
+$H_0$: Mean weight loss is same for all the diets.<br>
+$H_A$: Mean weight loss is different for atleast one diet
 
 ```{r onewayANOVA}
 ANOVATEST = aov(WeightLoss ~ Diet)
@@ -96,11 +96,3 @@ plot(TukeyHSD(ANOVATEST), las=1)
 ```
 
 From the above plot, we can conclude that the mean weight loss due to the diets **A** & **C** and diets **B** & **D** are significantly different, as we don't have `zero(0)` in between the upper and lower bounds, i.e., the means can never be equal.
-
-
-
-
-
-
-
-
