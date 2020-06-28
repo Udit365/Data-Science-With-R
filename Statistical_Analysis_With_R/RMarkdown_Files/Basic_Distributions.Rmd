@@ -54,7 +54,7 @@ To find the probability of $z >= 1$, i.e., $P(z >= 1)$ is :
 ```{r norm3}
 pnorm(q=1, mean = 0, sd = 1, lower.tail = FALSE )
 ```
-To find the 25th percentile (1st quartile), we can use the `qnorm()` command :
+To find the $25^{th}$ percentile (1st quartile), we can use the `qnorm()` command :
 
 ```{r qnorm}
 qnorm(p = 0.25, mean = 75, sd = 5, lower.tail = TRUE)
@@ -70,7 +70,7 @@ x
 
 ```
 
-Now, let's calculate the propability density for each element of list `x`.
+Now, let's calculate the propability density for each element of list $x$.
 
 ```{r dnorm}
 dens = dnorm(x, mean = 75, sd = 5)
@@ -194,7 +194,7 @@ Let's say,a variable $X$ follows a poisson distribution with a known rate of $\l
 
 So,
 
-$X \sim POISSON(\lambda = 7)$
+$X \sim POISSON(\lambda = 20)$
 
 To get some help on Poisson distribution in R :
 
@@ -230,25 +230,23 @@ Let's plot a probability density function :
 
 ```{r poissonsequence}
 
-poislist = seq(from = 0, to = 200, by = 0.5)
+poislist = seq(from = 0, to = 100)
 poislist
 
 ```
 
-Now, let's calculate the propability density for each element of list `binomlist`.
+Now, let's calculate the propability density for each element of list `poislist`.
 
 ```{r dbidist2}
-poisdens = dpois(poislist, lambda = 50)
+poisdens = dpois(poislist, lambda = 2)
 plot(poislist, poisdens, 
-     type = "h",
+     type = "l",
      xlab = "x",
      ylab = "Probability Density",
      las = 1,
      main = "Poisson Distribution",
      col = "dark red"
      )
-abline(v = 50, col = "red", lwd = 2)
-
 ```
 
 To find the probability of $X <= 4$, i.e., $P(X <= 4)$ is :
