@@ -6,11 +6,11 @@ The chi-squared test of independence is a method appropriate for testing indepen
 Let's first import and attach the required dataset for analysis
 
 ```{r dataload}
-LungCapData = read.table(file = "Dataset/LungCapData.txt", header = TRUE, sep = "\t")
+LungCapData = read.table(file = "../Dataset/LungCapData.txt", header = TRUE, sep = "\t")
 attach(LungCapData)
 ```
 
-Let's test the independece between ***Gender*** variable and ***Smoke*** variable.
+Let's test the independece between "*Gender*" variable and "*Smoke*" variable.
 
 Before jumping into the test, lets analyze the dataset first.
 
@@ -58,8 +58,8 @@ So, there might be some relation between the variables.
 
 Let's perform the chi-squared test to validate our hypothesis.
 
-Ho : The variables are independent, i.e., no association between the variables
-Ha : The variables are dependent, i.e., there is an association between the variables
+$H_0$ : The variables are independent, i.e., no association between the variables
+$H_A$ : The variables are dependent, i.e., there is an association between the variables
 
 Now, lets perform the chi squared test :
 
@@ -67,10 +67,9 @@ Now, lets perform the chi squared test :
 Chi = chisq.test(Tab, correct = T)
 Chi
 ```
- As the ***p-Value*** of this test is high enough (18.6%), so, we failed to reject the null hypothesis.
+ As the ***p-Value*** of this test is high enough ($18.6\%$), so, we failed to reject the null hypothesis.
  
 So, from the chi-squared test, it is evident that the variables are independent of each other.
- 
  
 Let's see what attributes are stored :
 
@@ -117,18 +116,18 @@ epi.2by2(Tab, method = "cohort.count", conf.level = 0.95)
 ```
 
 
-- For case control studies, we have to pass `method="case.control"` as the argument and the default `conf.level` is 95%.
+- For case control studies, we have to pass `method="case.control"` as the argument and the default `conf.level` is $95\%$.
 
 - RR will not be returned in case of ***Case Control Studies***.
 
-Looking at the odds ration, we can say that the odds of a female not smoking is 0.71 times the odds of a male not smoking.
+Looking at the odds ration, we can say that the odds of a female not smoking is $0.71$ times the odds of a male not smoking.
 
 So, if we take the inverse of this
 
 ```{r inverseodd}
 1/0.71
 ```
-So, we can say that the odds of a male not smoking is 1.4 times of the odds of a female not smoking.
+So, we can say that the odds of a male not smoking is $1.4$ times of the odds of a female not smoking.
 
 
 Its better to arrange our contigency table in the default format, i.e.,
@@ -148,11 +147,6 @@ Now, lets find out the different measures of association :
 ```{r associationmeasures}
 epi.2by2(ContTab, method = "cohort.count")
 ```
-From the above analysis we can see the odds ratio contains 1 . This indicate that the odds ratio is not significant.
+From the above analysis we can see the odds ratio contains $1$ . This indicate that the odds ratio is not significant.
 
-But, from here we can directly interpret that the odds of a male not smoking is 1.42 time to that of a female not smoking.
-
-
-
-
-
+But, from here we can directly interpret that the odds of a male not smoking is $1.42$ time to that of a female not smoking.

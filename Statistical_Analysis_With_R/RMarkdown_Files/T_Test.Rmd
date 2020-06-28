@@ -8,7 +8,7 @@ title: "t-Test"
 To perfrom a one sample t-Test, let's first get the data :
 
 ```{r Getting the data}
-LungCapData = read.table(file = "Dataset/LungCapData.txt", header = T, sep = "\t")
+LungCapData = read.table(file = "../Dataset/LungCapData.txt", header = T, sep = "\t")
 ```
 
 Let's see the variables present in our dataset :
@@ -37,15 +37,15 @@ boxplot(LungCapData$LungCap)
 
 Let's say,
 
-Ho:  mean = 8
-Ha: mean < 8
+$H_0: \mu = 8$<br>
+$H_A: \mu < 8$
 
 Let's perform the hypothesis testing
 
 ```{r hypothesis test}
 t.test(LungCapData$LungCap, mu=8, alternative = "less", conf.level = 0.95)
 ```
-As the p-value is more than 5% so, we failed to reject the Ho and hence, the sample mean is less than 8.
+As the p-value is more than $5\%$ so, we failed to reject the $H_0$ and hence, the sample mean is less than $8$.
 
 The default t-test in R is two sided, so, if we not include the argument `alternative="less"` then, R will perform a two sided hypothesis test.
 
@@ -72,7 +72,7 @@ Let's first get the data :
 
 ```{r BP data}
 
-BPData = read.table(file = "Dataset/BloodPressure.txt",header = T, sep = "\t")
+BPData = read.table(file = "../Dataset/BloodPressure.txt",header = T, sep = "\t")
 
 ```
 
@@ -103,8 +103,8 @@ abline(a=0, b=1) #slope = 0 and intercept = 1
 
 Let's perform a two sided hypothesis test on our data :
 
-Ho: Mean difference is zero, i.e., no chnage is SBP before and after
-Ha: Mean difference is not zero, i.e., there is a change is SBP
+$H_0$: Mean difference is zero, i.e., no chnage is SBP before and after<br>
+$H_A$: Mean difference is not zero, i.e., there is a change is SBP
 
 ```{r paired t-test}
 t.test(Before, After, mu=0, alternative = "two.sided", paired = TRUE, conf.level = 0.99)
@@ -115,9 +115,9 @@ If we change the order of "Before" and "After" then, it will only change the sig
 
 ### Independent Two Sample t-Test
 
-- A parametric method appropriate for examining the difference in means for 2 populations.
+This is a parametric method appropriate for examining the difference in means for 2 populations.
 
-- A way of examining the relationship between a numeric outcome variable (Y) and a categorical explanatory variable (X, with 2 levels)
+This is a way of examining the relationship between a numeric outcome variable ($Y$) and a categorical explanatory variable ($X$, with 2 levels)
 
 We will be examining the relationship between the **Smoking Habits** and its effect on **Lung Capacity**.
 
@@ -136,8 +136,8 @@ boxplot(LungCap ~ Smoke)
 
 Let's perform a hypothesis test :
 
-Ho: Mean Lung capcity of smokers and non-smokers are same
-Ha: Mean Lung capacity of smokers and non-smokers are different.
+$H_0$: Mean Lung capcity of smokers and non-smokers are same.<br>
+$H_A$: Mean Lung capacity of smokers and non-smokers are different.
 
 Let's perform a two sided t-test -:
 
@@ -162,8 +162,8 @@ This test is used to check whether the population variances are equal or, not.
 
 So, let's perform an hypothesis test on this.
 
-Ho: Population variances are equal
-Ha: population variances are not equal
+$H_0$: Population variances are equal<br>
+$H_A$: population variances are not equal
 
 ```{r loading package to perform test}
 library(car)
@@ -177,20 +177,6 @@ leveneTest(LungCap~Smoke)
 
 From the above test, we can see :
 
-***p-Value :*** 0.00034 = 0.034%
+$p-value :0.00034 = 0.034\%$
 
 As the *p-Value* is very small, so, we reject the null hypothesis and have evidence to believe that the population have unequal variances.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

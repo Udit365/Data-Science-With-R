@@ -3,7 +3,7 @@ title: "Charts For Statistical Analysis"
 ---
 
 
-To plot various charts, let's first load and attach the *"Lung Capacity Dataset".
+To plot various charts, let's first load and attach the "_Lung Capacity Dataset_".
 
 ```{r dataload}
 LungCapData = read.table(file = "../Dataset/LungCapData.txt", header = T, sep = "\t")
@@ -303,28 +303,3 @@ hist(LungCap,
 
 If we want *"Probability"* instead of *"Frequency"* in the *Y-axis* then, we can set 
 `freq = FALSE` or, `Prob = TRUE`, as follows :
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
